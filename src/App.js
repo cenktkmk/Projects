@@ -1,24 +1,25 @@
-
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Nav from './component/nav';
+import Home from './component/home';
+import Detail from './component/detail';
 import './App.css';
 
-
-
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [recipes, setRecipes] = useState([]);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  // Tarifleri eklemek ve diğer işlemleri gerçekleştirmek için gerekli fonksiyonlar...
 
   return (
-    <div
-      id="app"
-      style={{ backgroundColor: isDarkMode ? 'black' : 'white' }}
-    >
-      <h1 style={{color: isDarkMode ? 'white':'black'}}>Hoş Geldiniz</h1>
-      <button onClick={toggleDarkMode} style={{ backgroundColor: isDarkMode ? 'white' : 'black', color: isDarkMode ? 'black' : 'white' }}>Dark Mode</button>
-    </div>
+    <Router>
+      <div className='container'>
+        <Nav />
+        <Routes>
+        <Route exact path="/" element={<Home recipes={recipes} setRecipes={setRecipes} />} />
+          <Route path="/detail/:id" element={<Detail recipes={recipes} />} />
+      </Routes>
+      </div>
+    </Router>
   );
 }
 
